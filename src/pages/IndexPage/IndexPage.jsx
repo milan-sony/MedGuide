@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router'
-
 import { Search } from 'lucide-react'
 import "./IndexPage.css"
 
