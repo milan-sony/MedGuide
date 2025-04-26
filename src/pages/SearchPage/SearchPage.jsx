@@ -1,12 +1,21 @@
 import { Search } from 'lucide-react';
 import React, { useState } from 'react';
 import { Link } from 'react-router';
+import { axiosInstance } from '../../libs/Axios';
 
 function SearchPage() {
     const [medName, setMedName] = useState('');
 
-    const searchMedicine = () => {
-        console.log("medName:", medName);
+    const searchMedicine = async () => {
+        try {
+            console.log("medName:", medName);
+            console.log("axiosInstance", axiosInstance)
+            const res = await axiosInstance.post(medName)
+            console.log("res: ", res)
+        } catch (error) {
+            console.log("import.meta.env.VITE_APP_API_URL: ", import.meta.env.VITE_APP_API_URL)
+            console.log("Error getting response from api", error)
+        }
     };
 
     const handleInputChange = (e) => {
@@ -24,7 +33,7 @@ function SearchPage() {
             <div className='flex flex-col justify-center items-center mt-10'>
                 {/* Search Input */}
                 <input type="text" className="input" name='medName' value={medName} onChange={handleInputChange} placeholder="Eg. Paracetamol" />
-                <button className="btn btn-outline btn-primary mt-4"><Search></Search> Search</button>
+                <button className="btn btn-outline btn-primary mt-4" onClick={searchMedicine}><Search></Search> Search</button>
             </div>
 
             {/* List */}
